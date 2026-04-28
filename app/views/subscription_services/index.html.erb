@@ -13,6 +13,13 @@
     <% end %>
   </div>
 
+  <div class="subscription-list-page__help mb-6 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-4 py-3">
+    <p class="text-sm font-semibold text-indigo-900">何を登録するページ？</p>
+    <p class="mt-1 text-sm leading-relaxed text-gray-600">
+      毎月または毎年支払っているサービスを登録できます。たとえば、動画配信、音楽配信、クラウドストレージ、AIツールなどの料金をまとめて管理できます。
+    </p>
+  </div>
+
   <% if @subscription_services.present? %>
   <div class="summary-card bg-indigo-600 text-white rounded-2xl p-6 mb-5 shadow-sm">
     <p class="summary-card__label text-indigo-200 text-xs font-medium mb-1 uppercase tracking-wide"><%= t("helpers.heading.total_amount") %></p>
@@ -38,7 +45,10 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
       </svg>
     </div>
-    <p class="empty-state__text text-gray-500 text-sm mb-5">まだサービスが登録されていません</p>
+    <p class="empty-state__text text-base font-semibold text-gray-700 mb-2">まだサービスが登録されていません</p>
+    <p class="empty-state__help mx-auto mb-6 max-w-md text-sm leading-relaxed text-gray-500">
+      Netflix、Spotify、iCloud+、ChatGPT Plus のように、定期的に料金が発生するサービスを登録してみてください。
+    </p>
     <%= link_to "最初のサブスクを追加する", new_subscription_service_path,
         class: "empty-state__cta inline-flex items-center gap-1.5 bg-indigo-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition" %>
   </div>
