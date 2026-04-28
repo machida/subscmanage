@@ -1,14 +1,19 @@
-<% content_for :title, "Service presets" %>
+<% content_for :title, t("helpers.heading.admin") %>
 
-<h1>Service presets</h1>
+<div class="mx-auto max-w-2xl px-4 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">プリセット一覧</h1>
+    <%= link_to t("activerecord.attributes.admin/service_preset.new"), new_admin_service_preset_path,
+      class: "bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition" %>
+  </div>
 
-<div id="admin_service_presets">
-  <% @admin_service_presets.each do |admin_service_preset| %>
-    <%= render admin_service_preset %>
-    <p>
-      <%= link_to "Show this service preset", admin_service_preset %>
-    </p>
-  <% end %>
+  <div class="space-y-2">
+    <% @admin_service_presets.each do |admin_service_preset| %>
+    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-indigo-300 transition">
+      <%= link_to edit_admin_service_preset_path(admin_service_preset), class: "block" do %>
+        <%= render admin_service_preset %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New service preset", new_admin_service_preset_path %>

@@ -1,19 +1,22 @@
-<div id="<%= dom_id subscription_service %>" class="p-6">
-  <h2 class="text-2xl font-bold mb-2">
-    <%= subscription_service.name %>
-  </h2>
-
-  <div class="ml-1">
-    <strong><%= t("activerecord.attributes.subscription_service.next_payment") %>:</strong>
-    <%= subscription_service.next_payment %>
+<div id="<%= dom_id subscription_service %>" class="subscription-card flex items-center gap-4 px-5 py-4">
+  <div class="subscription-card__info flex-1 min-w-0">
+    <h2 class="subscription-card__name font-semibold text-gray-900 truncate"><%= subscription_service.name %></h2>
+    <div class="subscription-card__meta flex items-center gap-3 mt-1 text-xs text-gray-400">
+      <span class="subscription-card__date inline-flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        次回 <%= subscription_service.next_payment %>
+      </span>
+      <span class="subscription-card__interval"><%= subscription_service.payment_interval %><%= payment_unit_to_ja(subscription_service.payment_unit) %>ごと</span>
+    </div>
   </div>
-
-  <div class="ml-1">
-    <strong><%= t("activerecord.attributes.subscription_service.payment_interval") %>:</strong>
-    <%= subscription_service.payment_interval %><%= payment_unit_to_ja(subscription_service.payment_unit) %>
+  <div class="subscription-card__price text-right shrink-0">
+    <p class="font-bold text-gray-900">
+      <%= subscription_service.price.to_formatted_s(:delimited) %><span class="text-xs font-normal text-gray-400 ml-0.5"><%= monetary_unit_to_ja(subscription_service.monetary_unit) %></span>
+    </p>
   </div>
-
-  <div class="mt-3 text-right text-2xl font-bold">
-    <%= subscription_service.price.to_formatted_s(:delimited) %><%= monetary_unit_to_ja(subscription_service.monetary_unit) %>
-  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" class="subscription-card__chevron size-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
 </div>

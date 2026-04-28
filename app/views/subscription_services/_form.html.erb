@@ -1,71 +1,67 @@
 <%= form_with(model: subscription_service, data: { controller: "preset" }) do |form| %>
-  <div data-controller="autocomplete" data-autocomplete-url-value="/subscription_services/search"
-       data-action="keydown.enter->preset#fill keydown.down->preset#select
-      keydown.up->preset#select"
-       role="combobox"
-       class="relative field mx-auto max-w-md pt-6 pl-6 pr-6">
-    <%= form.label :name, style: "display: block", class: "pb-1 text-gray-700" %>
-    <%= form.text_field :name, data: { autocomplete_target: "input" },
-      class: "border-1 border-indigo-300 shadow-sm appearance-none
-      rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    <ul id="presets" class="absolute list-group left-0 mt-1 w-full bg-white border
-               border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto z-10 divide-y divide-gray-100"
-               data-autocomplete-target="results"></ul>
-  </div>
-  <% if subscription_service.errors.include?(:name) %>
-  <div class="mx-auto max-w-md text-red-800 pl-6">
-    <%= subscription_service.errors.full_messages_for(:name).first %>
-  </div>
-  <% end %>
-
-  <div class="field mx-auto max-w-md pt-6 pl-6 pr-6">
-    <%= form.label :next_payment, style: "display: block", class: "pb-1 text-gray-700" %>
-    <%= form.date_field :next_payment,
-      class: "border-1 border-indigo-300 shadow-sm appearance-none
-      rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-  </div>
-  <% if subscription_service.errors.include?(:next_payment) %>
-  <div class="mx-auto max-w-md text-red-800 pl-6">
-    <%= subscription_service.errors.full_messages_for(:next_payment).first %>
-  </div>
-  <% end %>
-
-  <div class="field mx-auto max-w-md pt-6 pl-6 pr-6">
-    <%= form.label :payment_interval, style: "display: block", class: "pb-1 text-gray-700" %>
-    <div class="relative">
-      <%= form.number_field :payment_interval, min: 1,
-        class: "border-1 border-indigo-300 shadow-sm appearance-none
-        rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-24" %>
-      <div class="absolute inset-y-0 right-0 flex items-center mr-2 ">
-        <%= form.select :payment_unit, [["ヶ月", "month"], ["年", "year"]] %>
-      </div>
+  <div class="subscription-form p-6 space-y-5">
+    <div class="form-field form-field--autocomplete relative"
+         data-controller="autocomplete" data-autocomplete-url-value="/subscription_services/search"
+         data-action="keydown.enter->preset#fill keydown.down->preset#select
+        keydown.up->preset#select"
+         role="combobox">
+      <%= form.label :name, class: "form-field__label block text-sm font-bold text-gray-700 mb-1" %>
+      <%= form.text_field :name, data: { autocomplete_target: "input" }, placeholder: "Netflix",
+        class: "form-field__input block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400
+        focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+      <ul id="presets" class="form-field__suggestions absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10 divide-y divide-gray-100"
+                 data-autocomplete-target="results"></ul>
+      <p class="form-field__help mt-1 text-xs text-gray-500">サービス名を入力すると候補から自動入力できます。</p>
+      <% if subscription_service.errors.include?(:name) %>
+      <p class="form-field__error mt-1 text-sm text-red-600"><%= subscription_service.errors.full_messages_for(:name).first %></p>
+      <% end %>
     </div>
-  </div>
-  <% if subscription_service.errors.include?(:payment_interval) %>
-  <div class="mx-auto max-w-md text-red-800 pl-6">
-    <%= subscription_service.errors.full_messages_for(:payment_interval).first %>
-  </div>
-  <% end %>
 
-  <div class="field mx-auto max-w-md pt-6 pl-6 pr-6">
-    <%= form.label :price, style: "display: block", class: "pb-1 text-gray-700" %>
-    <div class="relative">
-      <%= form.text_field :price,
-        class: "border-1 border-indigo-300 shadow-sm appearance-none
-        rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-24" %>
-      <div class="absolute inset-y-0 right-0 flex items-center mr-2 ">
-        <%= form.select :monetary_unit, [["円", "JPY"], ["$", "USD"]] %>
+    <div class="form-field">
+      <%= form.label :next_payment, class: "form-field__label block text-sm font-bold text-gray-700 mb-1" %>
+      <div class="w-52 max-w-full">
+        <%= form.date_field :next_payment,
+          class: "form-field__input block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900
+          focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
       </div>
+      <% if subscription_service.errors.include?(:next_payment) %>
+      <p class="form-field__error mt-1 text-sm text-red-600"><%= subscription_service.errors.full_messages_for(:next_payment).first %></p>
+      <% end %>
     </div>
-  </div>
-  <% if subscription_service.errors.include?(:price) %>
-  <div class="mx-auto max-w-md text-red-800 pl-6">
-    <%= subscription_service.errors.full_messages_for(:price).first %>
-  </div>
-  <% end %>
 
-  <div class="field mx-auto max-w-md pt-6 pl-6 pr-6">
-    <%= form.submit class: "bg-white border border-gray-300
-      px-4 py-2 rounded hover:bg-gray-100 hover:cursor-pointer shadow-sm transition" %>
+    <div class="form-field">
+      <%= form.label :payment_interval, class: "form-field__label block text-sm font-bold text-gray-700 mb-1" %>
+      <div class="form-field__row flex gap-2">
+        <%= form.number_field :payment_interval, min: 1, placeholder: "1",
+          class: "form-field__input block w-24 rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400
+          focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+        <%= form.select :payment_unit, [["ヶ月", "month"], ["年", "year"]], {},
+          class: "form-field__select w-24 shrink-0 rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 bg-white
+          focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none" %>
+      </div>
+      <p class="form-field__help mt-1 text-xs text-gray-500">毎月なら「1ヶ月」、年額なら「1年」を指定します。</p>
+      <% if subscription_service.errors.include?(:payment_interval) %>
+      <p class="form-field__error mt-1 text-sm text-red-600"><%= subscription_service.errors.full_messages_for(:payment_interval).first %></p>
+      <% end %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :price, class: "form-field__label block text-sm font-bold text-gray-700 mb-1" %>
+      <div class="form-field__row flex gap-2">
+        <%= form.text_field :price, placeholder: "980",
+          class: "form-field__input block w-32 rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400
+          focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+        <%= form.select :monetary_unit, [["円", "JPY"], ["$", "USD"]], {},
+          class: "form-field__select w-24 shrink-0 rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 bg-white
+          focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none" %>
+      </div>
+      <% if subscription_service.errors.include?(:price) %>
+      <p class="form-field__error mt-1 text-sm text-red-600"><%= subscription_service.errors.full_messages_for(:price).first %></p>
+      <% end %>
+    </div>
+
+    <div class="form-actions pt-1">
+      <%= form.submit class: "form-actions__submit w-full bg-indigo-600 text-white text-sm font-semibold px-4 py-3 rounded-lg hover:bg-indigo-700 cursor-pointer transition" %>
+    </div>
   </div>
 <% end %>

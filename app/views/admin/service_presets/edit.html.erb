@@ -1,14 +1,16 @@
 <% content_for :title, t("helpers.heading.edit", model: t("activerecord.models.admin.service_preset")) %>
 
-<h2 class="mx-auto max-w-md p-6 order-first text-2xl text-stone-900 sm:text-2xl">
-  <%= t("helpers.heading.edit", model: t("activerecord.models.admin.service_preset")) %>
-</h2>
+<div class="mx-auto max-w-md px-4 py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6"><%= t("helpers.heading.edit", model: t("activerecord.models.admin.service_preset")) %></h1>
 
-<%= render "form", admin_service_preset: @admin_service_preset %>
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-4">
+    <%= render "form", admin_service_preset: @admin_service_preset %>
+  </div>
 
-
-<div class="field mx-auto max-w-md pt-6 pl-6 pr-6 mt-8">
-  <%= button_to t("helpers.submit.delete"), admin_service_preset_path,
-      data: { confirm: "Are you sure?", turbo_confirm: "本当に削除しますか？" }, method: :delete,
-      class: "bg-red-600 border border-red-300 text-white px-4 py-2 rounded hover:bg-red-800 hover:cursor-pointer shadow-sm transition" %>
+  <div class="bg-white rounded-2xl shadow-sm border border-red-100 p-5">
+    <p class="text-sm text-gray-500 mb-3">このプリセットを削除すると元に戻せません。</p>
+    <%= button_to t("helpers.submit.delete"), admin_service_preset_path(@admin_service_preset),
+        data: { turbo_confirm: "本当に削除しますか？" }, method: :delete,
+        class: "bg-white border border-red-300 text-red-600 text-sm font-semibold px-4 py-2 rounded-lg hover:bg-red-50 cursor-pointer transition" %>
+  </div>
 </div>

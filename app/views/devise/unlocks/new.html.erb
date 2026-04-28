@@ -1,16 +1,30 @@
-<h2><%= t('devise.unlocks.new.resend_unlock_instructions') %></h2>
+<% content_for :title, t('devise.unlocks.new.resend_unlock_instructions') %>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="auth-page mx-auto max-w-md px-4 py-10">
+  <div class="auth-card bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+    <h1 class="auth-card__title text-2xl font-bold text-gray-900 mb-2"><%= t('devise.unlocks.new.resend_unlock_instructions') %></h1>
+    <p class="text-sm text-gray-500 mb-6">アカウントのロック解除リンクを再送します。登録済みのメールアドレスを入力してください。</p>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="auth-form space-y-4">
+        <div class="form-field">
+          <%= f.label :email, class: "form-field__label block text-sm font-semibold text-gray-700 mb-1" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+            class: "form-field__input block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900
+            focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+        </div>
+
+        <div class="form-actions pt-1">
+          <%= f.submit t('devise.unlocks.new.resend_unlock_instructions'),
+            class: "form-actions__submit w-full bg-indigo-600 text-white text-sm font-semibold px-4 py-3 rounded-lg hover:bg-indigo-700 cursor-pointer transition" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="actions">
-    <%= f.submit t('devise.unlocks.new.resend_unlock_instructions') %>
+  <div class="auth-links mt-4 text-center">
+    <%= render "devise/shared/links" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

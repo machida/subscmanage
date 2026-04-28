@@ -1,34 +1,42 @@
 <% content_for :title, t("helpers.heading.user.login") %>
 <% content_for :description, "サブスク管理のログイン画面です。" %>
 
-<h2 class="mx-auto max-w-md p-6 order-first text-2xl text-stone-900 sm:text-2xl font-bold">
-  <%= t('devise.sessions.new.sign_in') %>
-</h2>
+<div class="auth-page mx-auto max-w-md px-4 py-10">
+  <div class="auth-card bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+    <h1 class="auth-card__title text-2xl font-bold text-gray-900 mb-6"><%= t('devise.sessions.new.sign_in') %></h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field mx-auto max-w-md p-6">
-    <%= f.label :email, class: "text-sm font-medium text-gray-700" %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email",
-      class: "border-1 border-indigo-300 shadow-sm appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="auth-form space-y-4">
+        <div class="form-field">
+          <%= f.label :email, class: "form-field__label block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+            class: "form-field__input block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900
+            focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+        </div>
+
+        <div class="form-field">
+          <%= f.label :password, class: "form-field__label block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.password_field :password, autocomplete: "current-password",
+            class: "form-field__input block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900
+            focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+        <div class="form-field form-field--checkbox flex items-center gap-2">
+          <%= f.check_box :remember_me, class: "form-field__checkbox size-4 rounded border-gray-300 text-indigo-600" %>
+          <%= f.label :remember_me, class: "form-field__checkbox-label text-sm text-gray-600" %>
+        </div>
+        <% end %>
+
+        <div class="form-actions pt-1">
+          <%= f.button t('devise.sessions.new.sign_in'),
+            class: "form-actions__submit w-full bg-indigo-600 text-white text-sm font-semibold px-4 py-3 rounded-lg hover:bg-indigo-700 cursor-pointer transition" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="field mx-auto max-w-md p-6">
-    <%= f.label :password, class: "text-sm font-medium text-gray-700" %><br>
-    <%= f.password_field :password, autocomplete: "current-password",
-      class: "border-1 border-indigo-300 shadow-sm appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  <div class="auth-links mt-4 text-center">
+    <%= render "devise/shared/links" %>
   </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field mx-auto max-w-md p-6">
-      <%= f.check_box :remember_me, class: "size-5 rounded border-gray-300 shadow-sm" %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="mx-auto max-w-md p-6">
-    <%= f.button t('devise.sessions.new.sign_in'),class: "bg-white border border-gray-300
-      px-4 py-2 rounded hover:bg-gray-100 hover:cursor-pointer shadow-sm transition" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
