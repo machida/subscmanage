@@ -4,7 +4,9 @@ class UsersTest < ApplicationSystemTestCase
   test "user registration" do
     visit root_url
     assert_text "サブスク管理"
-    click_on "初めての方はこちら"
+    within(".hero__actions") do
+      click_on "無料で始める"
+    end
 
     fill_in "Eメール", with: "test@sample.com"
     fill_in "Eメール（確認用）", with: "test@sample.com"
@@ -45,7 +47,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "現在のパスワード", with: "subsc_test"
     fill_in "パスワード", with: "fhfur@ER4g;l"
     fill_in "パスワード（確認用）", with: "fhfur@ER4g;l"
-    click_on "パスワードを変更する"
+    click_on "パスワード変更"
     assert_text "パスワードを更新しました"
   end
 

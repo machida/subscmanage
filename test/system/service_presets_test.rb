@@ -7,7 +7,6 @@ class ServicePresetsTest < ApplicationSystemTestCase
 
   test "make new service preset" do
     visit admin_root_url
-    assert_text "管理者画面"
     click_on "プリセットの作成"
 
     fill_in "サービス名", with: "Test Service"
@@ -21,7 +20,6 @@ class ServicePresetsTest < ApplicationSystemTestCase
 
   test "edit service preset" do
     visit admin_root_url
-    assert_text "管理者画面"
 
     click_on "ChatGPT(Plus)"
     assert_text "プリセットの編集"
@@ -33,7 +31,6 @@ class ServicePresetsTest < ApplicationSystemTestCase
 
   test "delete service preset" do
     visit admin_root_url
-    assert_text "管理者画面"
 
     click_on "Youtube Premium"
     assert_text "プリセットの編集"

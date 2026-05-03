@@ -7,8 +7,8 @@ class SubscriptionServicesTest < ApplicationSystemTestCase
 
   test "make new subscription serivce" do
     visit subscription_services_url
-    assert_selector "h2", text: "サービス一覧"
-    click_on "サービスの登録"
+    assert_selector "h1", text: "マイサブスク"
+    click_on "追加する"
 
     fill_in "サービス名", with: "Youtube Premium"
     fill_in "次回支払日", with: Date.current
@@ -22,8 +22,8 @@ class SubscriptionServicesTest < ApplicationSystemTestCase
 
   test "no service name has been entered" do
     visit subscription_services_url
-    assert_selector "h2", text: "サービス一覧"
-    click_on "サービスの登録"
+    assert_selector "h1", text: "マイサブスク"
+    click_on "追加する"
 
     fill_in "次回支払日", with: Date.current
     fill_in "支払間隔", with: "1"
@@ -36,7 +36,7 @@ class SubscriptionServicesTest < ApplicationSystemTestCase
 
   test "edit subscription service" do
     visit subscription_services_url
-    assert_selector "h2", text: "サービス一覧"
+    assert_selector "h1", text: "マイサブスク"
     click_on "Youtube Premium"
 
     assert_text "サービスの編集"
@@ -50,7 +50,7 @@ class SubscriptionServicesTest < ApplicationSystemTestCase
 
   test "delete subscription service" do
     visit subscription_services_url
-    assert_selector "h2", text: "サービス一覧"
+    assert_selector "h1", text: "マイサブスク"
     click_on "Youtube Premium"
 
     assert_text "サービスの編集"

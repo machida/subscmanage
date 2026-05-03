@@ -19,7 +19,7 @@ if Rails.env.development?
     [
       { name: "Netflix", next_payment: Date.current.next_month, payment_interval: 1, payment_unit: :month, price: 1590, monetary_unit: :JPY },
       { name: "Spotify Premium", next_payment: Date.current.next_month, payment_interval: 1, payment_unit: :month, price: 980, monetary_unit: :JPY },
-      { name: "iCloud+ 200GB", next_payment: Date.current.next_month, payment_interval: 1, payment_unit: :month, price: 450, monetary_unit: :JPY },
+      { name: "iCloud+ 200GB", next_payment: Date.current.next_month, payment_interval: 1, payment_unit: :month, price: 450, monetary_unit: :JPY }
     ].each do |attrs|
       user.subscription_services.create!(attrs)
     end
