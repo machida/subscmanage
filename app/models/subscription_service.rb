@@ -18,4 +18,13 @@ class SubscriptionService < ApplicationRecord
       (price * JSON.parse(Exchange.latest_exchange("USD").data)["rates"]["JPY"]).ceil
     end
   end
+
+  def update_next_payment
+    case payment_unit
+    when "month"
+      update({ next_payment: next_payment >> payment_interval })
+    when "year"
+      update({ next_payment: next_payment >> (payment_interval * 12) })
+    end
+  end
 end
