@@ -11,10 +11,6 @@ class User < ApplicationRecord
   validates :email_confirmation, presence: true, on: :create
   validate :email_matches_confirmation, on: :create
 
-  def admin?
-    role == "admin"
-  end
-
   def this_month_payment_services
     subscription_services.filter { |service| service.next_payment.month == Date.current.month }
   end
